@@ -1,0 +1,168 @@
+CREATE TABLE declarer(
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+account char(16),
+name varchar(32),
+password char(16),
+work_unit varchar(128),
+subject int,
+ID_num varchar(18),
+sex tinyint(1),
+nation varchar(32),
+edu_bg varchar(48),
+degree varchar(48),
+party varchar(32),
+birth_day char(10),
+birth_place varchar(48),
+pro_job varchar(48),
+exe_job varchar(48),
+tel_per_num varchar(12),
+tel_work_num varchar(12),
+e_mail varchar(320),
+tel_home_num varchar(12),
+photo_per varchar(255),
+unit_name varchar(255),
+addr_work varchar(255),
+addr_home varchar(255),
+postcode varchar(6),
+photo_ID_card varchar(255),
+groupID int UNSIGNED references subject_group(id),
+refer int UNSIGNED references refer_classify(id),
+refer_reason varchar(2000),
+refer_res tinyint(1),
+pre_jugde_cnt int,
+pre_jugde_res tinyint(1),
+fi_jugde_res tinyint(1),
+submit tinyint(1),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE social_job(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id INT UNSIGNED NOT NULL references declarer(id),
+job varchar(255),
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE academic_job(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id int UNSIGNED NOT NULL references declarer(id),
+job varchar(255),
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE resume(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id int UNSIGNED NOT NULL references declarer(id),
+time_from varchar(10),
+time_to varchar(10),
+details varchar(255),
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE award_title(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id int UNSIGNED NOT NULL references declarer(id),
+name varchar(255),
+unit varchar(255),
+date varchar(10),
+total int,
+ranking int,
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE treatise(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id int UNSIGNED NOT NULL references declarer(id),
+details varchar(255),
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE fund_subsidize(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id int UNSIGNED NOT NULL references declarer(id),
+name varchar(255),
+ranking int,
+date varchar(10),
+terms varchar(255),
+details_proj varchar(255),
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE project(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id int UNSIGNED NOT NULL references declarer(id),
+name varchar(128),
+unit varchar(128),
+details varchar(255),
+benefit int,
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE ach_convert(
+primaryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+declarer_id int UNSIGNED NOT NULL references declarer(id),
+details varchar(255),
+PRIMARY KEY (primaryID)
+);
+
+CREATE TABLE system_time(
+id int UNSIGNED NOT NULL,
+open_time char(16),
+close_time char(16),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE refer(
+id int UNSIGNED NOT NULL AUTO_INCREMENT,
+account char(16),
+name varchar(32),
+password char(16),
+quota int,
+classifyID int UNSIGNED NOT NULL references refer_classify(id),
+submit tinyint(1),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE refer_classify(
+id int UNSIGNED NOT NULL AUTO_INCREMENT,
+name varchar(20),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE subject_group(
+id int UNSIGNED NOT NULL AUTO_INCREMENT,
+account char(16),
+name varchar(20),
+password char(16),
+quota int,
+submit tinyint(1),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE expert(
+id int UNSIGNED NOT NULL AUTO_INCREMENT,
+account char(16),
+name varchar(20),
+password char(16),
+sub_group int UNSIGNED references subject_group(id),
+role int,
+submit tinyint(1),
+PRIMARY KEY (id)
+);
+
+
+
+图片存储问题
+
+内容如下
+com.conn   连接类 里边装入同步异步的方法连接数据库,一般连接数据库的文件信息在properties提取
+com.entity 实体类 对应的信息完全就是数据库内表中的字段有get set方法
+com.dao    接口类 里边装进去所有实体类的调用接口
+com.impl   实现类 将接口加以实现一般也吧impl包放于dao之下
+com.proxy  代理类 实现dao接口,但是不实现其方法,因为impl中有方法的实现,利用代理类进行调用
+com.factory工厂类 在工厂类里边返回相应的代理对象,利用工厂类进行调用相应的代理类
+com.serv   控制类 在此类中只调用工厂类相应的方法,不在重复写入java代码
+com.filter 过滤器 不解释
+com.listen 监听器 不解释
+com.xxx    功能包 因人而异
+一般的情况是这样的结构 至少实现三层的概念ssh框架也要给予多层的模式进行附加 

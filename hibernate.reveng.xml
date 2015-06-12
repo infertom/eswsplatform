@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="academic_job" catalog="eswsplatform"
+		class="AcademicBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="ach_convert" catalog="eswsplatform"
+		class="AchConvertBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="subject_group" catalog="eswsplatform"
+		class="GroupBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="award_title" catalog="eswsplatform"
+		class="AwardBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="declarer" catalog="eswsplatform"
+		class="DeclarerBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="expert" catalog="eswsplatform" class="ExpertBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="fund_subsidize" catalog="eswsplatform"
+		class="SubsidizeBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="project" catalog="eswsplatform" class="ProjectBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="refer_classify" catalog="eswsplatform"
+		class="ReferClassifyBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="refer" catalog="eswsplatform" class="ReferBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="resume" catalog="eswsplatform" class="ResumeBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="social_job" catalog="eswsplatform"
+		class="SocialJobBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="system_time" catalog="eswsplatform"
+		class="SystemTimeBean">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="treatise" catalog="eswsplatform" class="TreatiseBean">
+	<primary-key>
+		<generator class="native"></generator>
+	</primary-key>
+</table>
+</hibernate-reverse-engineering>

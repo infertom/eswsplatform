@@ -1,0 +1,193 @@
+package com.novae.eswsplatform.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.novae.eswsplatform.bean.*;
+import com.novae.eswsplatform.dao.*;
+
+public class DeclarerServiceImp implements DeclarerService {
+	DeclarerBeanDAO dao = new DeclarerBeanDAO();
+	DeclarerBean bean;
+	
+	/*****?*****/
+	/**判断用户名是否已经被占用
+	 * @param account 需要判断的用户名
+	 * @return true：已被占用 false：未被占用
+	 */
+	@Override
+	public Boolean declarerAccountIsUsed(String account) {
+		Boolean ans = false;
+		
+		List a = dao.findByAccount(account);
+		if ( a.isEmpty() ) ans = true;
+		else ans = false;
+		
+		return ans;
+	}
+
+	/**申报者注册
+	 * @param account 新的账户
+	 * @param psw 密码
+	 */
+	@Override
+	public void declarerRegister(String account, String psw) {
+		bean = new DeclarerBean();
+		bean.setAccount(account);
+		bean.setPassword(psw);
+		dao.save(bean);
+	}
+
+	/**判断该申报者是否已提交申报信息
+	 * 申报者不能重复地提交
+	 * @param ID 申报者ID
+	 * @return true：已提交基本信息 false:未提交
+	 */
+	@Override
+	public boolean isSubmit(int ID) {
+		Boolean ans = false;
+		bean = dao.findById(ID);
+		
+		ans = bean.getSubmit();
+		
+		return ans;
+	}
+
+	/**获取基本信息
+	 * 在注册页面中需要显示申报者曾经保存过的基本信息
+	 * @param ID 申报者ID
+	 * @return 指定申报者的基本信息
+	 */
+	@Override
+	public DeclarerBean getBasicInform(int ID) {
+		bean = dao.findById(ID);
+		
+		return bean;
+	}
+
+	/**保存基本信息
+	 * 基本信息点击保存时需要调用的方法
+	 * @param db 修改后的信息
+	 * @param ID 申报者ID
+	 */
+	@Override
+	public void saveBasicInform(DeclarerBean db, int ID) {
+		dao.merge(db);
+	}
+
+	/**获取所获科技奖励和荣誉称号情况
+	 * 在注册页面中需要显示申报者曾经保存过的奖励和称号情况
+	 * @param ID 申报者ID
+	 * @return 指定申报者所有所获科技奖励和荣誉称号情况
+	 */
+	@Override
+	public List<AwardBean> getAward(int ID) {
+		AwardBeanDAO awardBeanDAO = new AwardBeanDAO();
+		List a = awardBeanDAO.findByDeclarerId(ID);
+		return (List<AwardBean>)a;
+	}
+
+	/**保存所获科技奖励和荣誉称号情况
+	 * 奖励和称号点击保存时需要调用的方法
+	 * @param db
+	 */
+	@Override
+	public void saveAward(ArrayList<AwardBean> ab) {
+		AwardBeanDAO awardBeanDAO = new AwardBeanDAO();
+		for (AwardBean awardBean:ab ){
+			awardBeanDAO.save(awardBean);
+		}
+	}
+
+	// 获取发表论文和专著情况
+	@Override
+	public List<TreatiseBean> getTreatise(int ID) {
+		TreatiseBeanDAO treatiseBeanDAO = new TreatiseBeanDAO();
+		List a = treatiseBeanDAO.findByDeclarerId(ID);
+		return (List<TreatiseBean>)a;
+	}
+
+	// 保存发表论文和专著情况
+	@Override
+	public void saveTreatise(ArrayList<TreatiseBean> tb) {
+		TreatiseBeanDAO treatiseBeanDAO = new TreatiseBeanDAO();
+		for ( TreatiseBean treatiseBean: tb ){
+			treatiseBeanDAO.save(treatiseBean);
+		}
+	}
+
+	// 获取获基金资助情况
+	@Override
+	public List<SubsidizeBean> getSubsidize(int ID) {
+		SubsidizeBeanDAO subsidizeBeanDAO = new SubsidizeBeanDAO();
+		return (List<SubsidizeBean>)subsidizeBeanDAO.findByDeclarerId(ID);
+	}
+
+	@Override
+	public void saveSubsidize(ArrayList<SubsidizeBean> sb) {
+		SubsidizeBeanDAO subsidizeBeanDAO = new SubsidizeBeanDAO();
+		for ( SubsidizeBean subsidizeBean: sb ){
+			subsidizeBeanDAO.save(subsidizeBean);
+		}
+	}
+
+	// 获取参与重大工程技术项目情况
+	@Override
+	public List<ProjectBean> getProject(int ID) {
+		ProjectBeanDAO projectBeanDAO = new ProjectBeanDAO();
+		return projectBeanDAO.findByDeclarerId(ID);
+	}
+
+	// 保存参与重大工程技术项目情况
+	@Override
+	public void saveProject(ArrayList<ProjectBean> pb) {
+		ProjectBeanDAO projectBeanDAO = new ProjectBeanDAO();
+		for ( ProjectBean projectBean: pb ){
+			projectBeanDAO.save(projectBean);
+		}
+
+	}
+
+	// 获取科技成果转化、科普和科技管理情况
+	@Override
+	public List<AchConvertBean> getAchConvert(int ID) {
+		AchConvertBeanDAO achConvertBeanDAO = new AchConvertBeanDAO();
+		return achConvertBeanDAO.findByDeclarerId(ID);
+	}
+
+	 // 保存科技成果转化、科普和科技管理情况
+	@Override
+	public void saveAchConvert(ArrayList<AchConvertBean> cb) {
+		AchConvertBeanDAO achConvertBeanDAO = new AchConvertBeanDAO();
+		for ( AchConvertBean achConvertBean: cb ){
+			achConvertBeanDAO.save(achConvertBean);
+		}
+
+	}
+
+	// 获取综合推荐理由
+	@Override
+	public String getReferReason(int ID) {
+		bean = dao.findById(ID);
+		return bean.getReferReason();
+	}
+
+	// 保存综合推荐理由
+	@Override
+	public void saveReferReason(String test, int ID) {
+		bean = dao.findById(ID);
+		bean.setReferReason(test);
+	}
+
+	/**提交
+	 * 点击提价时需要调用的方法
+	 * @param ID 申报者ID
+	 */
+	@Override
+	public void submit(int ID) {
+		bean = dao.findById(ID);
+		bean.setSubmit(true);
+
+	}
+
+}
