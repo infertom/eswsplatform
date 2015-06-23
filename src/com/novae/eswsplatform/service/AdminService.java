@@ -186,6 +186,11 @@ public interface AdminService {
 	 * @param ID 推荐单位ID
 	 * @return 指定推荐单位下的所有申报者
 	 */
-	List<DeclarerBean> getDeclarersInRefer(int ID); 
+	List<DeclarerBean> getDeclarersInRefer(int ID);
+
+	/**获取所有未通过候选人（推荐单位通过的人）
+	 * @return 所有未通过候选人（推荐单位通过的人）
+	 */
+	List<DeclarerBean> getNCandidates(); 
 
 }

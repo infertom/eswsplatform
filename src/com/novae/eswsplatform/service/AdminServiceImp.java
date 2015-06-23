@@ -248,6 +248,19 @@ public class AdminServiceImp implements AdminService {
 		}
 		return ans;
 	}
+	
+	/**获取所有未通过候选人（推荐单位通过的人）
+	 * @return 所有未通过候选人（推荐单位通过的人）
+	 */
+	@Override
+	public List<DeclarerBean> getNCandidates() {
+		List<DeclarerBean> list = (List<DeclarerBean>)declarerBeanDAO.findAll();
+		List<DeclarerBean> ans = new ArrayList<DeclarerBean>();
+		for (DeclarerBean d: list){
+			if ( !d.getReferRes() ) ans.add(d);
+		}
+		return ans;
+	}
 
 	/**将指定申报者的终评结果改成result
 	 * @param ID 申报者ID
