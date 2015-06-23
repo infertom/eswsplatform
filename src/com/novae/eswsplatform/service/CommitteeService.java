@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.novae.eswsplatform.bean.DeclarerBean;
+import com.novae.eswsplatform.bean.GroupBean;
 
 /**给专家模块的接口
  * @author Kinslayer
@@ -82,6 +83,20 @@ public interface CommitteeService {
 	 * @param ID 申报者ID
 	 * @param result true：通过 false：不通过
 	 */
-	void changePreResult(int ID, boolean result); 
-
+	void changePreResult(int ID, boolean result);
+	
+	/**获取指定学科组投票结果
+	 * 专家点击查看查看投票结果时所调用的方法
+	 * 需要按名字排序
+	 * @param ID 学科组ID
+	 * @return 按照投票数排序的候选人
+	 */
+	List<DeclarerBean> getResultsInGroupByName(int ID); 
+	
+	/**
+	 * 由账号找科学组
+	 * @param 账号
+	 * @return 科学组
+	 */
+	public GroupBean getGroupBean(String account);
 }

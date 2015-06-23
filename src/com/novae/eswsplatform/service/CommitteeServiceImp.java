@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import Tools.SortChineseName;
+
 import com.novae.eswsplatform.bean.DeclarerBean;
 import com.novae.eswsplatform.bean.ExpertBean;
 import com.novae.eswsplatform.bean.GroupBean;
@@ -27,6 +29,14 @@ public class CommitteeServiceImp implements CommitteeService {
 		return (ArrayList<DeclarerBean>)list;
 	}
 
+	/**
+	 * 
+	 */
+	public GroupBean getGroupBean(String account){
+		List<GroupBean> list = (List<GroupBean>)dao.findByAccount(account);
+		return list.get(0);
+	}
+	
 	/**获取指定学科组投票结果
 	 * 专家点击查看查看投票结果时所调用的方法
 	 * 需要按投票数由高到低排序
@@ -41,7 +51,20 @@ public class CommitteeServiceImp implements CommitteeService {
 				return a.getPreJugdeCnt() - b.getPreJugdeCnt();
 			}
 		});
-		return null;
+		return list;
+	}
+	
+	/**获取指定学科组投票结果
+	 * 专家点击查看查看投票结果时所调用的方法
+	 * 需要按名字排序
+	 * @param ID 学科组ID
+	 * @return 按照投票数排序的候选人
+	 */
+	@Override
+	public List<DeclarerBean> getResultsInGroupByName(int ID) {
+		List list = declarerBeanDAO.findByGroupId(ID);
+		Collections.sort(list, new SortChineseName());
+		return list;
 	}
 
 	/**获取指定ID的候选人基本信息
