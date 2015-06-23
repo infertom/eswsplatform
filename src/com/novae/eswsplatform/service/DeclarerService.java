@@ -81,5 +81,11 @@ public interface DeclarerService {
 	 * @param ID 鐢虫姤鑰匢D
 	 */
 	void submit(int ID);
+	
+	/** 获取当前登陆的申请者
+	 * @param account 登陆账号
+	 * @return 当前登陆的申请者
+	 */
+	public DeclarerBean findDeclarerBean(String account);
 
 }

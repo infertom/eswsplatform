@@ -25,6 +25,16 @@ public class DeclarerServiceImp implements DeclarerService {
 		
 		return ans;
 	}
+	
+	/** 获取当前登陆的申请者
+	 * @param account 登陆账号
+	 * @return 当前登陆的申请者
+	 */
+	public DeclarerBean findDeclarerBean(String account){
+		DeclarerBeanDAO declarerBeanDAO = new DeclarerBeanDAO();
+		List<DeclarerBean> list = declarerBeanDAO.findByAccount(account);
+		return list.get(0);
+	}
 
 	/**�걨��ע��
 	 * @param account �µ��˻�
