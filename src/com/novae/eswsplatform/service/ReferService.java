@@ -36,6 +36,12 @@ public interface ReferService {
 	 * 选择申报者后点击提交需要调用的方法
 	 * @param declarersID 所有打了勾的申报者的ID
 	 */
-	void submit(ArrayList<Integer> declarersID, int referId); 
+	void submit(ArrayList<Integer> declarersID, int referId);
+
+	/**获取当前账号的推荐单位
+	 * @param account 推荐单位账号
+	 * @return 推荐单位
+	 */
+	ReferBean getReferBean(String account); 
 
 }

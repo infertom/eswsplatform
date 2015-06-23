@@ -40,6 +40,17 @@ public class ReferServiceImp implements ReferService {
 		return declarerBean;
 	}
 
+	/**获取当前账号的推荐单位
+	 * @param account 推荐单位账号
+	 * @return 推荐单位
+	 */
+	@Override
+	public ReferBean getReferBean(String account){
+		ReferBeanDAO referBeanDAO = new ReferBeanDAO();
+		List<ReferBean> list = (List<ReferBean>)referBeanDAO.findByAccount(account);
+		return list.get(0);
+	}
+
 	/**获取该推荐单位的推荐名额
 	 * 显示页面时需要调用
 	 * @return 指定推荐单位的名额
